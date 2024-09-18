@@ -1,0 +1,120 @@
+{% extends ('user/user_base.html') %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<style>
+    input{
+        background:transparent;
+        color:white;
+    }
+     input:hover, input:active {
+        background:transparent;
+        color:white;
+    }
+    #form12{
+        box-shadow: inset 0px 3px 10px 5px #000;
+    }
+    .file-download{
+        position:fixed;
+        top:35vh;
+        left:30vw;
+        width:500px;
+        height:200px;
+        color:black;
+        padding:30px;
+        background-image: linear-gradient(to left, #1A3636, #DFD3C3);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .file-download a{
+        width:120px;
+        padding:10px 20px;
+        height:60px;
+        background:red;
+    }
+
+    .file-download .d_btn{
+        background:green;
+    }
+
+</style>
+
+                   <div id="home">
+<!--                         <form action="/keyword-search" method="post" class="form-control-sm ">-->
+<!--                           <div class="form-outline">-->
+<!--                              <label class="form-label text-white" for="form12">Search with keyword</label><br>-->
+<!--                              <input type="text" id="form12" class="form-control-lg " required value="{{ keyword }}" name="keyword"/><br><br>-->
+<!--                              <button type="submit" class="btn btn-dark">Search</button>-->
+<!--                           </div>-->
+<!--                         </form>-->
+
+
+<!--                                           <div class="file-download">-->
+<!--                        <p>Click On Download Button to Download the File..</p><br>-->
+<!--                        <p>File Name : </p><br>-->
+<!--                        <a href="{{ file }}" class="d_btn" title="Click to download the file.."-->
+<!--                           download="download" >Download</a>-->
+<!--                        <a href="/user_files_list">Cancel</a>-->
+<!--                    </div>-->
+
+               {% if file %}
+                    <div class="file-download">
+                        <p>Click On Download Button to Download the File</p><br>
+                        <p>File Name : {{ f_name }}</p>
+                        <a href="{{ file }}" class="d_btn" title="Click to download the file.."
+                           download="download" style="color:white;text-decoration:none;" >Download</a>
+                        <a href="/user_files_list" style="color:white;text-decoration:none;">Cancel</a>
+                    </div>
+               {% endif %}
+<!--                 <h5 style="color:white;"> {{ msg }} </h5>-->
+
+
+{% if data %}
+                        <h1>Files List</h1>
+<table class="table table-hover table-dark table-bordered" style="width:80%;text-align:center;">
+      <thead>
+           <tr>
+                 <th scope="col">F.NO</th>
+                 <th scope="col">DATE</th>
+                 <th scope="col">D.O.NAME</th>
+                 <th scope="col">FILE NAME</th>
+                 <th scope="col">REMARKS</th>
+                 <th scope="col">SIZE</th>
+                 <th scope="col">DOWNLOAD</th>
+           </tr>
+      </thead>
+  <tbody class="t_body">
+
+       {% for j in data %}
+            {% for i in j %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+                <td>{{ i[5] }}</td>
+
+               <td> <form action="/user_file_download" method="post">
+                       <input type="hidden" name="file_num" id="number" readonly value="{{ i[0] }}">
+                       <input type="hidden" name="file_name" id="name" readonly value="{{ i[3] }}">
+                       <input type="hidden" name="new_file_name"  readonly value="{{ i[6] }}">
+                   <input type="hidden" name="do_name" id="n" readonly value="{{ i[2] }}">
+<!--                        <input type="hidden" name="key_word"  readonly value="{{ keyword }}">-->
+                <button type="submit" style="padding:2px 8px;" id="delete_button" class="file_button">Download</button>
+                  </form></td>
+            </tr>
+          {% endfor %}
+       {% endfor %}
+
+  </tbody>
+</table>
+{% endif %}
+
+</div>
+
+{% endblock %}
+

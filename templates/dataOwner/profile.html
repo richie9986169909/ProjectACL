@@ -1,0 +1,186 @@
+{% extends 'dataOwner/dataOwner_base.html' %}
+{% block title %} Data Owner Profile {% endblock %}
+{% block content %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<style>
+    .predict {
+        font-size: 25px;
+        border-radius: 15px;
+        padding: 5px;
+    }
+
+    form {
+        box-shadow: inset 1px 2px 50px 20px #365E32;
+    }
+
+    .form-control {
+        text-align: center;
+    }
+
+    .predict:hover {
+        background-color: gold;
+    }
+
+    label {
+        color: black;
+        margin-left:-70px;
+    }
+
+    .content {
+        margin-left: 10%;
+        text-align: center;
+    }
+
+    span {
+        font-size: 40px;
+    }
+
+    .second-h2 {
+        font-size: 40px;
+        text-align: center;
+        color: white;
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+    }
+
+    .matrix {
+        background-color: white;
+    }
+
+    #profile label,
+    input {
+        font-size: 15px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .btn-custom {
+        width: 200px;
+        font-size: 18px;
+        border-radius: 30px;
+        background-color: #0C1844;
+        color: white;
+        border: none;
+    }
+
+    .btn-custom:hover {
+        background-color: #662D8C;
+        color: white;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="content text-center">
+        <div id="profile">
+            <div class="profile-content">
+                <h1 class="second-h2 mt-1">{{ dataOwner_name }} Profile</h1>
+                <form method="post" action="/update">
+                    <div class="form-group row" style="margin-left:40px;">
+                        <div class="col-md-4 form-group">
+                            <label for="name" class="col-sm-6 col-form-label">Data Owner Id :</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="name" name="name" value="{{ data[0] }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="username" class="col-sm-6 col-form-label">Data Owner Code :</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control" id="username" value="{{ data[1] }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="email" class="col-sm-6 col-form-label">Data Owner Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control" value="{{ data[3] }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="email" class="col-sm-6 col-form-label">Data Owner Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control" id="email" value="{{ data[4] }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="pass" class="col-sm-6 col-form-label">Password :</label>
+                            <div class="col-sm-8">
+                                <input type="password" readonly class="form-control" id="pass" value="********">
+                            </div>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="p" class="col-sm-6 col-form-label">Selected Algorithm :</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control" id="p" value="{{ data[5] }}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group row mt-4">
+                    <div class="col-sm-12 col-lg-6 mb-3">
+                        <a href="/dataOwner_password_change">
+                            <button type="button" class="btn btn-custom">Password Change</button>
+                        </a>
+                    </div>
+<!--                    <div class="col-sm-12 col-lg-6 mb-3">-->
+<!--                        <button type="button" id="rsa_delete_button" class="btn btn-custom">Generate New RSA Keys</button>-->
+<!--                        <button type="button" id="ecc_delete_button" class="btn btn-custom">Generate New ECC Keys</button>-->
+<!--                    </div>-->
+                </div>
+                <br>{{ msg }}<br>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/script1.js"></script>
+
+<script>
+    var rsa_dlt = document.getElementById('rsa_delete_button');
+    var ecc_dlt = document.getElementById('ecc_delete_button');
+
+    rsa_dlt.addEventListener('click', () => rsa_delete_file());
+    ecc_dlt.addEventListener('click', () => ecc_delete_file());
+
+    function rsa_delete_file() {
+        if (confirm("All your uploaded files will be deleted?")) {
+            fetch('http://127.0.0.1:5002/dataOwner_new_key_generation', {
+                method: 'POST',
+                body: JSON.stringify({ message: 'rsa' }),
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            alert('RSA Keys updated...')
+        } else {
+            alert('Nothing deleted')
+        }
+    }
+
+    function ecc_delete_file() {
+        if (confirm("All your uploaded files will be deleted?")) {
+            fetch('http://127.0.0.1:5002/dataOwner_new_key_generation', {
+                method: 'POST',
+                body: JSON.stringify({ message: 'ecc' }),
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            alert('ECC Keys updated...')
+        } else {
+            alert('Nothing deleted')
+        }
+    }
+</script>
+
+{% endblock %}

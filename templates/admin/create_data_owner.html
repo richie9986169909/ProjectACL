@@ -1,0 +1,139 @@
+{% extends ('admin/admin_base.html') %}
+{% block title %} Admin | Add user {% endblock %}
+{% block content %}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f7f7f7;
+    }
+
+    .card {
+        background: #ffffff;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 30px;
+    }
+
+    .card-header {
+        background: #662D8C;
+        background-image: linear-gradient(to left, #662D8C, #FE9090);
+        color: #ffffff;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .form-control {
+        border-radius: 40px;
+        text-align: center;
+        padding: 15px;
+        background: #f7f7f7;
+        border: 1px solid #e1e1e1;
+        box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+        border-color: #662D8C;
+        box-shadow: 0 0 8px rgba(102, 45, 140, 0.3);
+    }
+
+    .option {
+        height: auto;
+    }
+
+    .btn-primary {
+        background-color: #662D8C;
+        border-color: #662D8C;
+        border-radius: 40px;
+        padding: 10px 20px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        background-color: #FE9090;
+        border-color: #FE9090;
+    }
+
+    .error_mail {
+        color: red;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+</style>
+
+<center>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-8">
+                <div class="card">
+                    <header class="card-header text-center">
+                        <h4 class="card-title mt-2">CREATE DATA OWNER</h4>
+                    </header><br>
+                    <article class="card-body">
+                        <form action="/create_dataOwner" method="post" enctype="multipart/form-data">
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <label>Data Owner Code</label>
+                                    <input type="text" class="form-control" name="do_code" required placeholder="Enter user id">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label>Data Owner Name</label>
+                                    <input type="text" class="form-control" name="name" required placeholder="Enter unique user name">
+                                    <h5 class="error_mail">{{msg}}</h5>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <label>Data Owner Email Id</label>
+                                    <input type="email" class="form-control" required name="email" placeholder="Ex: user@gmail.com">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label>Create password</label>
+                                    <input class="form-control" name="password" minlength="5" placeholder="Password should be more than 4 characters" required type="password">
+                                </div>
+                            </div>
+<!--<div class="col-md-6 form-group">-->
+<!--			<label>Choose Algorithm</label>-->
+<!--			<select name="algorithm" required class="form-control">-->
+<!--				  <option class="option" value="">Select here....</option>-->
+<!--				  <option class="option" value="rsa">RSA Algorithm</option>-->
+<!--                  <option class="option" value="ecc">ECC Algorithm</option>-->
+<!--			</select>-->
+<!--		</div>-->
+                            <div class="form-row">
+                                <div class="col-md-6 form-group">
+                                    <label>Algorithm</label>
+									 <input class="form-control" name="algorithm" value="rsa" placeholder="" readonly type="text">
+
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                            <h5 class="error_mail">{{ msg1 }}</h5>
+                        </form>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+
+{% endblock %}

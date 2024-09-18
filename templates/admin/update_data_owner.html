@@ -1,0 +1,97 @@
+{% extends ('admin/admin_base.html') %}
+{% block title %} update user {% endblock %}
+{% block content %}
+
+
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+
+	<style>
+
+.card{
+background:transparent;
+ box-shadow:10px 15px 40px #662D8C;
+ background-image:linear-gradient(to left, #662D8C,#FE9090);
+}
+label{
+text-align:start;
+}
+.form-control{
+text-align:center;
+border-radius:40px;}
+
+
+	</style>
+
+<center>
+
+<div class="container">
+<h2 class="text-center"><a href="http://bootstrap-ecommerce.com/"> </a></h2>
+
+<div class="row justify">
+<div class="col-sm-12">
+<div class="card">
+	<div class="error_mail">{{ dlt }}</div>
+<header class="card-header" style="box-shadow:5px 10px 30px black;">
+
+	<h4 class="card-title mt-2">UPDATE DATA OWNER DETAILS</h4>
+</header><br>
+<article class="card-body">
+<form action="/update_dataOwner" method="post" enctype="multipart/form-data">
+	<div class="form-row">
+		<div class="col-md-6 form-group">
+			<label>Data Owner Id</label>
+		  	<input type="text" class="form-control" name="do_id" value="{{ data[0] }}" readonly>
+		</div> <!-- form-group end.// -->
+
+		<div class="col-md-6 form-group">
+			<label>Data Owner Code</label>
+		  	<input type="text" class="form-control" name="do_code" value="{{ data[1] }}" readonly>
+		</div> <!-- form-group end.// -->
+	</div> <!-- form-row end.// -->
+	<div class="form-row">
+		<div class="col-md-6 form-group">
+			<label>Data Owner Name</label>
+		<input type="text" class="form-control" name="do_name" required value="{{ data[3] }}">
+		<h5 class="error_mail">{{msg}}</h5>
+		</div> <!-- form-group end.// -->
+
+<!--	<div class="col-md-6 form-group">-->
+<!--		<label>User Mobile Number :</label>-->
+<!--	    <input class="form-control" name="mobile" minlength="10" maxlength="12" value="{{ data[5] }}" required type="number">-->
+<!--	</div> &lt;!&ndash; form-group end.// &ndash;&gt;-->
+
+	<div class="col-md-6 form-group">
+		<label>Original email id</label>
+	    <input class="form-control"  value="{{ data[4] }}" required name="do_email" type="email">
+	</div> <!-- form-group end.// -->
+
+		</div> <!-- form-row end.// -->
+	<div class="form-row">
+<!--			<div class="col-md-12 form-group">-->
+<!--		<label>User address</label>-->
+<!--	    <input class="form-control"  value="{{ data[7] }}" required name="address" type="text">-->
+<!--	</div> &lt;!&ndash; form-group end.// &ndash;&gt;-->
+		</div> <!-- form-row end.// -->
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block"> Submit </button>
+    </div> <!-- form-group// -->
+	<h5 class="error_mail">{{ msg1 }}</h5>
+
+</form>
+</article> <!-- card-body end .// -->
+
+</div> <!-- col.//-->
+
+</div> <!-- row.//-->
+
+
+</div>
+	</div>
+	</center>
+
+
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+{% endblock %}

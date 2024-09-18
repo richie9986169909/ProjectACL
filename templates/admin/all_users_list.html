@@ -1,0 +1,47 @@
+{% extends ('admin/admin_base.html') %}
+{% block title %}All Users List {% endblock %}
+{% block content %}
+
+<style>
+.main-table-div{
+    width:80%;
+    height:70vh;
+   overflow:auto;
+}
+
+.table{
+border:1px solid white;
+}
+    .t_body{
+    background-color:black;
+    }
+
+</style>
+<h2  class="second-h2 text-black">All Users</h2>
+<div class="main-table-div">
+<table class="table table-hover table-dark table-bordered text-center">
+  <thead>
+    <tr>
+                <th scope="col">USER ID</th>
+                <th scope="col">USER NAME</th>
+                <th scope="col">EMAIL ID</th>
+                <th scope="col">ATTRIBUTE</th>
+                <th scope="col">D.O.NAME</th>
+    </tr>
+  </thead>
+  <tbody class="t_body">
+
+             {% for i in data %}
+            <tr>
+
+       <td>{{ i[0] }}</td><td>{{ i[1] }}</td><td>{{ i[2] }}</td><td>{{ i[3] }}</td><td>{{ i[4] }}</td>
+<!--                <td>{{ i[5] }}</td>-->
+
+            </tr>
+                   {% endfor %}
+
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

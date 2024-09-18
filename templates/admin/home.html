@@ -1,0 +1,23 @@
+{% extends ('admin/admin_base.html') %}
+{% block title %} Admin | Home {% endblock %}
+{% block content %}
+<style>
+    img{
+    height:200px;
+    position:relative;
+    margin-top:10%;
+    animation: walking 11s linear infinite;
+    }
+
+    @keyframes walking {
+
+    0% {left:630px;}
+    50% {left:100px;}
+    100% {left:-740px;}
+    }
+</style>
+
+<!--<img src="/static/background/dog2.gif">-->
+
+{% endblock %}
+

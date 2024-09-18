@@ -1,0 +1,93 @@
+{% extends ('dataOwner/dataOwner_base.html') %}
+{% block title %} Users List {% endblock %}
+{% block content %}
+
+<style>
+.table{
+border:1px solid white;
+max-height:70vh;
+overflow:scroll;
+}
+    .t_body{
+    background-color:black;
+    }
+    .font-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.font-button:hover {
+    background-color: #0056b3;
+}
+.font-button a {
+    color: white;
+    text-decoration: none;
+}
+.font-button a:hover {
+    text-decoration: none;
+}
+.file_button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.file_button:hover {
+    background-color: red;
+}
+.file_button1:hover {
+    background-color: teal;
+}
+</style>
+<button class="font-button">
+    <a href="/create_user_page">Add New User</a>
+</button>
+
+<div style="width:80%;">
+<table class="table table-hover table-dark table-bordered text-center">
+  <thead>
+    <tr>
+                <th scope="col">USER ID</th>
+                <th scope="col">USER NAME</th>
+                <th scope="col">EMAIL ID</th>
+                <th scope="col">ATTRIBUTE</th>
+                <th scope="col">D.O.NAME</th>
+                <th scope="col">EDIT</th>
+                <th scope="col">DELETE</th>
+    </tr>
+  </thead>
+  <tbody class="t_body">
+
+             {% for i in data %}
+            <tr>
+
+       <td>{{ i[0] }}</td><td>{{ i[1] }}</td><td>{{ i[2] }}</td><td>{{ i[3] }}</td><td>{{ i[4] }}</td>
+<!--                <td>{{ i[5] }}</td>-->
+
+              <td>  <form action="/dataOwner_user_edit" method="post">
+                    <input type="hidden" name="user_id" readonly value="{{ i[0] }}">
+                     <button type="submit" style="padding:2px 8px;" class="file_button1">Edit</button>
+                </form></td>
+
+                  <td><form action="/dataOwner_user_delete" method="post">
+                       <input type="hidden" name="user_id" readonly value="{{ i[0] }}">
+                <button type="submit" style="padding:2px 8px;" class="file_button">Delete</button>
+                  </form></td>
+            </tr>
+                   {% endfor %}
+
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

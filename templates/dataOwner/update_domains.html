@@ -1,0 +1,99 @@
+{% extends ('dataOwner/dataOwner_base.html') %}
+{% block title %} domains {% endblock %}
+{% block content %}
+
+<style>
+.table{
+border:1px solid white;
+text-align:center;
+}
+    .t_body{
+    min-height:50px;
+    border:1px solid white;
+    background-color:black;
+    }
+   #close-domains{
+   position:relative;
+   left:15%;
+   background:transparent;
+   border:none;
+   }
+   #close-domains span{
+
+   color:white;
+   }
+</style>
+
+<div style="width:60%;">
+
+<!--                    <h3 class="text-white">Domains table</h3>-->
+    <h5 style="color:white;">{{ msg }}</h5>
+   <button type="button" style="padding:2px 8px;" id="add-domain" onclick="" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample" class=" btn btn-success file_button">Add New Access Domain</button>
+<!--    <a href="/all_domain_delete" >-->
+        <button type="button" style="padding:2px 8px;" id="delete_button" title="It will delete all domains" class="btn btn-danger file_button">Delete All Access Domains</button>
+<!--    </a>-->
+        <br><br>
+
+   <form action="/add_domain"  class="form-control bg-dark collapse collapse-vertical" id="collapseWidthExample" method="post">
+       <input type="text" class="form-control-lg col-md-8" placeholder="Enter domain code" name="domain_code">
+       <input type="text" class="form-control-lg col-md-8" placeholder="Enter domain name" name="domain_name">
+<!--       <button id="close-domains"><span aria-hidden="true">&times;</span></button>-->
+       <br><br>
+       <button type="submit" class="btn btn-primary">Add</button>
+   </form><br>
+
+<table class="table table-hover table-dark table-bordered">
+  <thead>
+             <tr>
+                 <th scope="col">S.NO</th>
+                 <th scope="col">ACCESS CODE</th>
+                 <th scope="col">ACCESS NAME</th>
+                 <th scope="col">DELETE</th>
+             </tr>
+  </thead>
+  <tbody class="t_body">
+             {% for i in range (domain_codes | length) %}
+            <tr>
+                <td>{{ i+1 }}</td>
+                <td>{{ domain_codes[i] }}</td>
+                <td>{{ domain_names[i] }}</td>
+                <td>
+                    <form action="/single_domain_delete" method="post">
+                       <input type="hidden" name="domain_code" id="name" readonly value="{{ domain_codes[i] }}">
+                       <button type="submit" style="padding:2px 8px;"  class="file_button">Delete</button>
+                  </form>
+                </td>
+            </tr>
+                   {% endfor %}
+
+  </tbody>
+</table>
+</div>
+<script>
+var dlt = document.getElementById('delete_button');
+
+dlt.addEventListener('click', ()=> delete_file());
+
+
+function delete_file(){
+if(confirm("Are you sure you want to delete your file ?")){
+
+    fetch('http://127.0.0.1:5002/all_domain_delete', {
+            method: 'POST',
+            body: JSON.stringify({}),
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+          window.location.reload();
+      }
+
+else{
+alert('Nothing deleted')
+}
+}
+</script>
+
+
+{% endblock %}

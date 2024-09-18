@@ -1,0 +1,88 @@
+{% extends 'dataOwner/dataOwner_base.html' %}
+{% block title %} dataOwner | UploadFile {% endblock %}
+{% block content %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<style>
+    body {
+        font-family: sans-serif;
+    }
+    .form-control {
+        background: transparent;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .form-select {
+        background: transparent;
+        color: white;
+        border-radius: 10px;
+    }
+    .home-card {
+        margin: 50px auto;
+        box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: auto;
+        padding: 2rem;
+        border-radius: 15px;
+        background-image: linear-gradient(to right, #939185, #2F3645);
+    }
+    .home-card h2 {
+        color: white;
+    }
+    .btn-primary {
+        border-radius: 30px;
+        background: #597445;
+        border: none;
+        width: 100%;
+        height: 50px;
+    }
+    .btn-primary:hover {
+        background: #597445;
+    }
+    .text-label {
+        color: white;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="home-card">
+        <h2 class="text-center">FILE ACCESS CONTROL</h2>
+        <form class="form-horizontal" action="/dataOwner_file_access_update" method="post" enctype="multipart/form-data">
+            <div class="row mb-4">
+                <div class="col-md-4 col-lg-3 col-sm-12 mb-3">
+                    <label class="text-label" for="file_num">File Number:</label>
+                    <input type="text" class="form-control" style="color: black;" required readonly value="{{ f_no }}" name="file_num">
+                </div>
+                <div class="col-md-4 col-lg-3 col-sm-12 mb-3">
+                    <label class="text-label" for="file_name">File Name:</label>
+                    <input type="text" class="form-control" style="color: black;" required readonly value="{{ f_name }}" name="file_name" id="file_name">
+                </div>
+                <div class="col-md-4 col-lg-3 col-sm-12 mb-3">
+                    <label class="text-label" for="old_access">Access Given:</label>
+                    <input type="text" class="form-control" style="color: black;" required readonly value="{{ old_access }}" name="a">
+                </div>
+                <div class="col-md-4 col-lg-3 col-sm-12 mb-3">
+                    <label class="text-label" for="access">Give Access:</label>
+                    <select multiple size="6" name="access" class="form-control" required>
+                        {% for i in range(d_names|length) %}
+                        <option value="{{ d_codes[i] }}">{{ d_names[i] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    {{ msg }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'admin/admin_base.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+
+<style>
+.table {
+    border: 1px solid white;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+.t_body {
+    background-color: black;
+}
+.font-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+.font-button:hover {
+    background-color: #0056b3;
+}
+.font-button a {
+    color: white;
+    text-decoration: none;
+}
+.font-button a:hover {
+    text-decoration: none;
+}
+.file_button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+.file_button:hover {
+    background-color: #0056b3;
+}
+</style>
+
+<button class="font-button">
+    <a href="/create_sensitive_word">Add Sensitive to the dictionary</a>
+</button>
+<br>
+<div style="width: 80%; margin: auto;">
+    <table class="table table-hover table-dark table-bordered text-center">
+        <thead>
+            <tr>
+                <th scope="col">S.NO</th>
+                <th scope="col">WORDS</th>
+                <th scope="col">EDIT</th>
+            </tr>
+        </thead>
+        <tbody class="t_body">
+            {% for i in data %}
+            <tr>
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>
+                    <form action="/edit_sensitive_word" method="post">
+                        <input type="hidden" name="do_code" readonly value="{{ i[1] }}">
+                        <button type="submit" class="Add_button">Edit</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
